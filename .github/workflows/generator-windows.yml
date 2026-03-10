@@ -226,7 +226,13 @@ jobs:
           sed -i -e 's|Purslane Ltd|${{ env.compname }}|' ./Cargo.toml
           sed -i -e 's|Purslane Ltd|${{ env.compname }}|' ./libs/portable/Cargo.toml
           sed -i -e 's|Purslane Ltd|${{ env.compname }}|' ./res/msi/Package/License.rtf
-             
+          
+      - name: change about text
+        continue-on-error: true
+        shell: bash
+        run: |
+          find ./flutter -name "*.dart" -exec sed -i -e 's|在这个混乱的世界中，用心制作！|信息部|g' {} \;
+          
       - name: change url to custom
         if: env.urlLink != 'https://rustdesk.com'
         continue-on-error: true
